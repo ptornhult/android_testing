@@ -1,19 +1,29 @@
 package com.example
 
 import android.net.Uri
+import io.mockk.every
+import io.mockk.mockk
+import io.mockk.spyk
+import io.mockk.verify
 import org.junit.Assert
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 
 class ExampleTest {
-
   private lateinit var example: Example
+  private lateinit var exampleMock: Example
+  private lateinit var exampleSpy: Example
+  private lateinit var exampleRepo: ExampleRepo
 
   @Before
   fun setUp() {
-    // Given
+    exampleRepo = object : ExampleRepo {
+      override fun one(): Int = 1
+    }
     example = Example()
+    exampleMock = mockk()
+    exampleSpy = spyk(example)
   }
 
   @Test
@@ -66,5 +76,13 @@ class ExampleTest {
     val url = "http://www.google.com"
     val result = Uri.parse(url)
     assertEquals(url, result.toString())
+  }
+
+  @Test
+  fun `isNotOne calls isOne once`() {
+    exampleSpy.isNotOne(2)
+    verify { exampleSpy.isOne(any()) }
+    verify(exactly = 1) { exampleSpy.isOne(2) }
+    verify(exactly = 0) { exampleSpy.isOne(1) }
   }
 }

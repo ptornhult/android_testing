@@ -63,4 +63,9 @@ dependencies {
     androidTestImplementation 'androidx.compose.ui:ui-test-junit4'
     debugImplementation 'androidx.compose.ui:ui-tooling'
     debugImplementation 'androidx.compose.ui:ui-test-manifest'
+//    testImplementation "io.mockk:mockk:1.13.4"
+    testImplementation "io.mockk:mockk-android:1.13.4"
+    testImplementation "io.mockk:mockk-agent:1.13.4"
+    androidTestImplementation "io.mockk:mockk-android:1.13.4"
+    androidTestImplementation "io.mockk:mockk-agent:1.13.4"
 }
